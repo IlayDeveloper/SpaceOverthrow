@@ -11,6 +11,7 @@ public class SpaceShip : MonoBehaviour
     public GameObject littleExplosion;
     public Rigidbody rigidbody;
     public ParticleSystem particle;
+    public AudioSource engine;
     
     [Header("Fuel")]
     public float maxFuel;
@@ -70,6 +71,11 @@ public class SpaceShip : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             {
                 rigidbody.AddForce(transform.forward * accelerationLinear);
+                if(!engine.isPlaying) engine.Play();
+            }
+            else
+            {
+                if(engine.isPlaying) engine.Stop();
             }
 
             if (Input.GetKey(KeyCode.S))
