@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class GravityTarget : MonoBehaviour
 {
+    public float gravityRate = 9.8f;
     public Rigidbody rigidBody { get; private set; }
 
     private void Awake()
@@ -15,13 +16,13 @@ public class GravityTarget : MonoBehaviour
     private void OnEnable()
     {
         if(Gravitation.targets == null)
-            Gravitation.targets = new List<Rigidbody>();
+            Gravitation.targets = new List<GravityTarget>();
         
-        Gravitation.targets.Add(rigidBody);
+        Gravitation.targets.Add(this);
     }
 
     private void OnDisable()
     {
-        Gravitation.targets.Remove(rigidBody);
+        Gravitation.targets.Remove(this);
     }
 }

@@ -15,6 +15,7 @@ public class Follower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!spaceShip) return;
         float speed = spaceShip.rigidbody.velocity.magnitude;
         float maxSpeed = spaceShip.maxSpeed;
         camera.position = spaceShip.transform.position + spaceShip.transform.up * Mathf.Lerp(down, up, speed / maxSpeed);

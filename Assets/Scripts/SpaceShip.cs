@@ -5,24 +5,36 @@ using UnityEngine;
 public class SpaceShip : MonoBehaviour
 {
     public static SpaceShip Instance;
-
-    public GameObject explosion; 
+    
+    [Header("References")]
+    public GameObject explosion;
+    public GameObject littleExplosion;
     public Rigidbody rigidbody;
     public ParticleSystem particle;
+    
+    [Header("Fuel")]
     public float maxFuel;
     public float fuelRaschod;
-    [SerializeField]private float currentFuel;
+    private float currentFuel;
     public TMPro.TextMeshProUGUI textFuel;
+    
+    [Header("HP")]
+    public float maxHP;
+    private float currentHP;
+    public TMPro.TextMeshProUGUI textHP;
+    
+    [Header("Movement")]
     public float maxSpeed;
     public float maxRotation;
     public float accelerationLinear;
     public float accelerationRotation;
     
- 
     private void Awake()
     {
         currentFuel = maxFuel;
+        currentHP = maxHP;
         textFuel.text = currentFuel.ToString();
+        textHP.text = currentHP.ToString();
 
         if (Instance == null)
         {
@@ -38,16 +50,14 @@ public class SpaceShip : MonoBehaviour
     {
         if (currentFuel > 0)
         {
-            
             LinearMovement();
-            
             
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
             {
-               
                 currentFuel -= fuelRaschod * Time.deltaTime;
                 particle.Play();
             }
+
             RotateMovement();
             textFuel.SetText(currentFuel.ToString());
         }
@@ -89,14 +99,36 @@ public class SpaceShip : MonoBehaviour
     {
         string tag = collision.gameObject.tag;
 
+        // Add damage
         if(tag == "Sun" || tag == "Planet")
         {
+            currentHP = 0;
+        }
+        else
+        {
+            currentHP -= (rigidbody.velocity.magnitude / maxSpeed);
+        }
+        
+        // check HP
+        if (currentHP <= 0)
+        {
+            // Add explosion 
             GameObject exp = Instantiate(explosion);
             exp.transform.position = transform.position;
+            
+            // Destroy ship
             GameObject.Destroy(gameObject);
+            currentHP = 0;
         }
-
+        else
+        {
+            // Add little explosion
+            GameObject exp = Instantiate(littleExplosion, transform);
+            exp.transform.position = transform.position;
+        }
         
+        // Update text info
+        textHP.text = currentHP.ToString();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -110,7 +142,6 @@ public class SpaceShip : MonoBehaviour
                 currentFuel = maxFuel;
             }
             Destroy(fuel.gameObject);
-
         }
     }
 }
