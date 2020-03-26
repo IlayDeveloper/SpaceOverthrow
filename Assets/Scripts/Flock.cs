@@ -9,7 +9,6 @@ public class Flock : MonoBehaviour
     public float spotRange;
     public GameObject enemyPrefab;
     private Enemy[] enemies;
-    //public Transform target;
 
     private void Awake()
     {
