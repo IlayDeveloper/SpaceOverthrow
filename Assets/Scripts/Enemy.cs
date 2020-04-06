@@ -118,10 +118,15 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(speed.normalized);
     }
 
-    private void OnCollisionEnter(Collision other)
+    public void DestroyThisEnemy()
     {
         GameObject exp = Instantiate(explosion);
         exp.transform.position = transform.position;
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        DestroyThisEnemy();
     }
 }
