@@ -8,15 +8,16 @@ public class Projectile : PoolObject
     public float speed;
     public float lifeTime;
     public GameObject explosion;
+    private float timeToDestroy;
     
     // Update is called once per frame
     void Update()
     {
         transform.position = transform.position + transform.forward * speed * Time.deltaTime;
-        lifeTime -= Time.deltaTime;
-        if (lifeTime <= 0)
+        timeToDestroy -= Time.deltaTime;
+        if (timeToDestroy <= 0)
         {
-            Destroy(gameObject);
+            PoolManager.Instance.ReturnObject(gameObject);
         }
     }
 
@@ -30,5 +31,10 @@ public class Projectile : PoolObject
 
         PoolObjectDestroy();
         Instantiate(explosion, transform.position, transform.rotation);
+    }
+
+    private void OnEnable()
+    {
+        timeToDestroy = lifeTime;
     }
 }

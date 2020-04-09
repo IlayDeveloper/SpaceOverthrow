@@ -16,7 +16,7 @@ public class Weapon : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                GameObject temp = PoolManager.Instance.GetPoolObject(projectilePrefab, transform.position, transform.rotation, transform);
+                GameObject temp = PoolManager.Instance.GetPoolObject(projectilePrefab, transform.position, transform.rotation, null);
  
             }
 

@@ -8,12 +8,12 @@ public class Pool : MonoBehaviour
     public PoolObject poolObjectPrefab;
     public int poolCount;
 
-    private GameObject CreateObject()
+    private GameObject CreateObject(Transform parent)
     {
         GameObject temp = Instantiate(poolObjectPrefab.gameObject);
         temp.transform.position = transform.position;
         temp.transform.rotation = transform.rotation;
-        temp.transform.SetParent(transform);
+        temp.transform.SetParent(parent);
         temp.SetActive(false);
         return temp;
     }
@@ -28,7 +28,7 @@ public class Pool : MonoBehaviour
         }
         else
         {
-            return CreateObject();
+            return CreateObject(parent);
         }
     }
 
@@ -49,7 +49,7 @@ public class Pool : MonoBehaviour
     {
         for (int i = 0; i < poolCount; i++)
         {
-            CreateObject();
+            CreateObject(transform);
         }
     }
 }
