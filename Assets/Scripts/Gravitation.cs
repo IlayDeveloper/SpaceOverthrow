@@ -14,6 +14,8 @@ public class Gravitation : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(GamePlayController.Instance.state != GamePlayController.State.Play) return;
+        
         foreach (var target in targets)
         {
             AddForce(target);

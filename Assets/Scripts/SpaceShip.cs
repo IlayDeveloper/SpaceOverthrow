@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpaceShip : MonoBehaviour
 {
@@ -49,6 +47,8 @@ public class SpaceShip : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(GamePlayController.Instance.state != GamePlayController.State.Play) return;
+        
         if (currentFuel > 0)
         {
             LinearMovement();
