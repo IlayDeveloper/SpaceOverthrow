@@ -132,6 +132,7 @@
           <e p="Fuel.cs" t="Include" />
           <e p="GamePlay" t="Include">
             <e p="GamePlayController.cs" t="Include" />
+            <e p="MainMenuController.cs" t="Include" />
           </e>
           <e p="Gravitation.cs" t="Include" />
           <e p="GravityTarget.cs" t="Include" />
@@ -144,6 +145,9 @@
           </e>
           <e p="Projectile.cs" t="Include" />
           <e p="SpaceShip.cs" t="Include" />
+          <e p="UI" t="Include">
+            <e p="RecordsTable.cs" t="Include" />
+          </e>
           <e p="Weapon.cs" t="Include" />
         </e>
         <e p="SpaceShipPack" t="Include">
