@@ -101,6 +101,7 @@ public class SpaceShip : MonoBehaviour
         }
     }
 
+    public event System.Action ShipDestroyedEvent;
     private void OnCollisionEnter(Collision collision)
     {
         string tag = collision.gameObject.tag;
@@ -125,6 +126,7 @@ public class SpaceShip : MonoBehaviour
             // Destroy ship
             GameObject.Destroy(gameObject);
             currentHP = 0;
+            ShipDestroyedEvent.Invoke();
         }
         else
         {
