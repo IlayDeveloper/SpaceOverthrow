@@ -19,7 +19,7 @@ public class GamePlayController : MonoBehaviour
     [Space] 
     public int delayToStartSeconds;
     public TextMeshProUGUI startCounter;
-    public TextMeshProUGUI timer;
+    public TextMeshProUGUI timerText;
     private float counterTextSize;
     
     private void Awake()
@@ -58,6 +58,7 @@ public class GamePlayController : MonoBehaviour
     public void GameOver()
     {
         menu.SetActive(true);
+        state = State.GameOver;
     }
 
     public void Restart()
@@ -72,13 +73,25 @@ public class GamePlayController : MonoBehaviour
 
     private void CheckTime()
     {
-        
+        StartCoroutine(Timer());
     }
-
-    private float time;
+    
+    public float gameTime { get; private set; }
     private IEnumerator Timer()
     {
-        yield return null;
+        gameTime = 0;
+        timerText.SetText("timer: " + gameTime.ToString());
+        float timeUpdate = Time.time;
+        
+        while (state == State.Play)
+        {
+            gameTime += Time.deltaTime;
+            if(Time.time - timeUpdate >= 1)
+            {
+                timerText.SetText("timer: " + Mathf.Floor(gameTime).ToString());
+            }
+            yield return null;
+        }
     }
 
     private IEnumerator DelayToStart()
@@ -102,5 +115,6 @@ public class GamePlayController : MonoBehaviour
         }
         
         state = State.Play;
+        CheckTime();
     }
 }
