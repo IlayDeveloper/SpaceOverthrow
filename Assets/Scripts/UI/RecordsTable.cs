@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
+public class RecordsTable : MonoBehaviour
 {
-    public class RecordsTable : MonoBehaviour
-    {
-        
-    }
+    
 }
