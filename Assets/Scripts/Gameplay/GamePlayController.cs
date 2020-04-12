@@ -59,6 +59,7 @@ public class GamePlayController : MonoBehaviour
     {
         menu.SetActive(true);
         state = State.GameOver;
+        Records.SaveRecord(gameTime);
     }
 
     public void Restart()

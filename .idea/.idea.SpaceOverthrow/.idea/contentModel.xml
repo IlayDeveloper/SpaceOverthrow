@@ -147,7 +147,7 @@
           <e p="Projectile.cs" t="Include" />
           <e p="SpaceShip.cs" t="Include" />
           <e p="UI" t="Include">
-            <e p="RecordsTable.cs" t="Include" />
+            <e p="UIRecordsTable.cs" t="Include" />
           </e>
           <e p="Weapon.cs" t="Include" />
         </e>

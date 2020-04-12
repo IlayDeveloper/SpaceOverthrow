@@ -37,6 +37,13 @@ public static class Records
     private static Table GetTable()
     {
         string path = Path.Combine(Application.dataPath, FileName);
+
+        if (!File.Exists(path))
+        {
+            string JSON = JsonUtility.ToJson(new Table());
+            File.WriteAllText(path, JSON);
+        }
+        
         return JsonUtility.FromJson<Table>(File.ReadAllText(path));
     }
 
@@ -61,14 +68,24 @@ public static class Records
         {
             List<Row> newRows = new List<Row>();
 
+            // Для первого значения
+            if (rows.Length == 0)
+            {
+                newRows.Add(newRow);
+                rows = newRows.ToArray();
+                return;
+            }
+            
             // Если значение больше значения из последей строки, то добавляем в таблицу
             if(newRow.value > rows[rows.Length-1].value)
             {
                 bool added = false;
-
                 // Определяем порядкоывй id для новой строки
-                for (int i = 0; i < rows.Length-1; i++)
+                for (int i = 0; i < rows.Length; i++)
                 {
+                    // если превысило макс количество строк, то прерываем добавлением
+                    if( (rows.Length-1) > MaxRowCount) break;
+                    
                     if (rows[i].value < newRow.value)
                     {
                         newRows.Add(newRow);
@@ -83,6 +100,19 @@ public static class Records
                         newRows.Add(rows[i+1]);
                     }
                 }
+
+                rows = newRows.ToArray();
+            }
+            // Если таблица еще не заполнена
+            else if (rows.Length < MaxRowCount)
+            {
+                for (int i = 0; i < rows.Length; i++)
+                {
+                    newRows.Add(rows[i]);
+                }
+                
+                newRows.Add(newRow);
+                rows = newRows.ToArray();
             }
         }
     }
