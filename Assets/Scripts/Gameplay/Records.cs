@@ -84,21 +84,17 @@ public static class Records
                 for (int i = 0; i < rows.Length; i++)
                 {
                     // если превысило макс количество строк, то прерываем добавлением
-                    if( (rows.Length-1) > MaxRowCount) break;
+                    if( i+1 >= MaxRowCount) break;
                     
-                    if (rows[i].value < newRow.value)
+                    if (rows[i].value < newRow.value && !added)
                     {
                         newRows.Add(newRow);
+                        newRows.Add(rows[i]);
                         added = true;
                         continue;
                     }
                     
-                    if(!added)
-                        newRows.Add(rows[i]);
-                    else
-                    {
-                        newRows.Add(rows[i+1]);
-                    }
+                    newRows.Add(rows[i]);
                 }
 
                 rows = newRows.ToArray();

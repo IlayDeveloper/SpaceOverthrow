@@ -57,6 +57,7 @@ public class GamePlayController : MonoBehaviour
 
     public void GameOver()
     {
+        if(state == State.GameOver) return;
         menu.SetActive(true);
         state = State.GameOver;
         Records.SaveRecord(gameTime);
